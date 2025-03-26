@@ -42,7 +42,14 @@ copypath.Parent = background
 copypath.Size = UDim2.new(0,200,0,50)
 copypath.Position = UDim2.new(0,250,0,220)
 copypath.Text = "Copy path"
-
+local destroygui = Instance.new("TextButton")
+destroygui.Parent = background
+destroygui.Size = UDim2.new(0,20,0,20)
+destroygui.Position = UDim2.new(0,500,0,10)
+destroygui.Text = "X"
+destroygui.MouseButton1Click:Connect(function()
+   gui:Destroy()
+end)
 copypath.MouseButton1Down:Connect(function()
 	if selectpart ~= nil then
 		setclipboard(pathtotext(selectpart))
