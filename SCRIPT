@@ -13,42 +13,48 @@ function pathtotext(object)
 	end
 	return path
 end
-
+local size = 2
 local gui  = Instance.new("ScreenGui")
 gui.Parent = game:GetService("CoreGui")
 local background = Instance.new("Frame")
 background.Parent = gui
-background.Position = UDim2.new(0.4,0,0.4,0)
-background.Size = UDim2.new(0,500,0,300)
+background.Position = UDim2.new(0.5,-200 * size,0.5,-250*size)
+background.Size = UDim2.new(0,500 * size,0,300 * size)
 local listelement = Instance.new("ScrollingFrame")
 listelement.Parent = background
-listelement.Size = UDim2.new(0,200,0,250)
-listelement.Position = UDim2.new(0,0,0,20)
+listelement.CanvasSize = UDim2.new(0,0,20,0)
+listelement.Size = UDim2.new(0,250 * size,0,250*size)
+listelement.Position = UDim2.new(0,0,0,20* size)
 local list = Instance.new("UIListLayout")
 list.Parent = listelement
 local Textclassbox = Instance.new("TextBox")
 Textclassbox.Parent = background
-Textclassbox.Size = UDim2.new(0,200,0,50)
-Textclassbox.Position = UDim2.new(0,250,0,20)
+Textclassbox.Size = UDim2.new(0,200*size,0,50*size)
+Textclassbox.TextSize *= size
+Textclassbox.Position = UDim2.new(0,250* size,0,20* size)
 
 local ButtonSearch = Instance.new("TextButton")
 ButtonSearch.Parent = background
-ButtonSearch.Size = UDim2.new(0,200,0,50)
-ButtonSearch.Position = UDim2.new(0,250,0,120)
+ButtonSearch.Size = UDim2.new(0,200*size,0,50*size)
+ButtonSearch.Position = UDim2.new(0,250* size,0,120* size)
 ButtonSearch.Text = "Search"
+ButtonSearch.TextSize *= size
+
 local selectpart = nil
 local copypath = Instance.new("TextButton")
 copypath.Parent = background
-copypath.Size = UDim2.new(0,200,0,50)
-copypath.Position = UDim2.new(0,250,0,220)
+copypath.Size = UDim2.new(0,200*size,0,50*size)
+copypath.Position = UDim2.new(0,250* size,0,220* size)
 copypath.Text = "Copy path"
+copypath.TextSize *= size
+
 local destroygui = Instance.new("TextButton")
 destroygui.Parent = background
-destroygui.Size = UDim2.new(0,20,0,20)
-destroygui.Position = UDim2.new(0,500,0,10)
+destroygui.Size = UDim2.new(0,20*size,0,20*size)
+destroygui.Position = UDim2.new(0,500* size,0,10* size)
 destroygui.Text = "X"
 destroygui.MouseButton1Click:Connect(function()
-   gui:Destroy()
+	gui:Destroy()
 end)
 copypath.MouseButton1Down:Connect(function()
 	if selectpart ~= nil then
@@ -60,17 +66,27 @@ copypath.MouseButton1Down:Connect(function()
 end)
 
 ButtonSearch.MouseButton1Down:Connect(function()
-	
+
 
 	for i,part in game:GetDescendants() do
 		if (part.ClassName == Textclassbox.Text) then
-			
+
 			local button = Instance.new("TextButton")
 			button.Parent = listelement
-			button.Size = UDim2.new(0,200,0,50)
-			button.Position = UDim2.new(0,250,0,120)
+			button.Size = UDim2.new(0,250*size,0,50*size)
+			button.Position = UDim2.new(0,250* size,0,120* size)
 			button.Name = part.Name
 			button.Text = part.Name
+			button.TextSize *= size
+
+			local button1 = Instance.new("TextLabel")
+			button1.Parent = button
+			button1.Size = UDim2.new(0,250*size,0,10*size)
+			button1.Position = UDim2.new(0,5,0,0)
+			button1.Name = part.Name
+			button1.TextSize = 4 * size
+			button1.Text = pathtotext(part)
+			     
 			button.MouseButton1Click:Connect(function()
 				selectpart = part
 			end)
