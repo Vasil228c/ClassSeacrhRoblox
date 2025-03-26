@@ -1,0 +1,72 @@
+function pathtotext(object)
+	local path = ""
+	local backparent = object
+	while true do
+		if (backparent == game) then
+			path = "game."..path
+			break
+		end
+		path = backparent.Name.."."..path
+		backparent = backparent.Parent
+
+
+	end
+	return path
+end
+
+local gui  = Instance.new("ScreenGui")
+gui.Parent = game:GetService("CoreGui")
+local background = Instance.new("Frame")
+background.Parent = gui
+background.Position = UDim2.new(0.4,0,0.4,0)
+background.Size = UDim2.new(0,500,0,300)
+local listelement = Instance.new("ScrollingFrame")
+listelement.Parent = background
+listelement.Size = UDim2.new(0,200,0,250)
+listelement.Position = UDim2.new(0,0,0,20)
+local list = Instance.new("UIListLayout")
+list.Parent = listelement
+local Textclassbox = Instance.new("TextBox")
+Textclassbox.Parent = background
+Textclassbox.Size = UDim2.new(0,200,0,50)
+Textclassbox.Position = UDim2.new(0,250,0,20)
+
+local ButtonSearch = Instance.new("TextButton")
+ButtonSearch.Parent = background
+ButtonSearch.Size = UDim2.new(0,200,0,50)
+ButtonSearch.Position = UDim2.new(0,250,0,120)
+ButtonSearch.Text = "Search"
+local selectpart = nil
+local copypath = Instance.new("TextButton")
+copypath.Parent = background
+copypath.Size = UDim2.new(0,200,0,50)
+copypath.Position = UDim2.new(0,250,0,220)
+copypath.Text = "Copy path"
+
+copypath.MouseButton1Down:Connect(function()
+	if selectpart ~= nil then
+		setclipboard(pathtotext(selectpart))
+		copypath.Text = "Copied!"
+		wait(1)
+		copypath.Text = "Copy path"
+	end
+end)
+
+ButtonSearch.MouseButton1Down:Connect(function()
+	
+
+	for i,part in game:GetDescendants() do
+		if (part.ClassName == Textclassbox.Text) then
+			
+			local button = Instance.new("TextButton")
+			button.Parent = listelement
+			button.Size = UDim2.new(0,200,0,50)
+			button.Position = UDim2.new(0,250,0,120)
+			button.Name = part.Name
+			button.Text = part.Name
+			button.MouseButton1Click:Connect(function()
+				selectpart = part
+			end)
+		end
+	end
+end)
