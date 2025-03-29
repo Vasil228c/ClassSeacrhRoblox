@@ -75,7 +75,9 @@ copypath.MouseButton1Down:Connect(function()
 	end
 end)
 ButtonFireServer.MouseButton1Down:Connect(function()
-	
+	if selectpart ~= nil then
+		selectpart:FireServer()
+	end
 end)
 ButtonSearch.MouseButton1Down:Connect(function()
 
